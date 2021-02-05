@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Keyboard grid navigation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .calander {
+            font-size: 0;
+            width: 70%;
+        }
+
+        .day.date.active {
+            background-color: blue;
+        }
+
+        .selected {
+            background: red !important
+        }
+
+        .date {
+            position: relative;
+            height: 80px;
+            display: inline-block;
+            width: 14.2853%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .calandertext {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 50%;
+            text-align: center;
+            line-height: 0;
+            font-size: 40px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="calander">
+        <div class="date day">
+            <div class="calandertext">1</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">2</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">3</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">4</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">5</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">6</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">7</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">8</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">9</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">10</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">11</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">12</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">13</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">14</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">15</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">16</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">17</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">18</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">19</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">20</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">21</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">22</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">23</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">24</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">25</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">26</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">27</div>
+        </div>
+        <div class="date day">
+            <div class="calandertext">28</div>
+        </div>
+    </div>
+    <script>
+        let $date = $('.day.date').not(':has(:empty)');
+        let o = {
+            38: 'up',
+            40: 'bottom',
+            37: 'prev',
+            39: 'next'
+        }
+
+        let keys = {
+            up: "Up",
+            down: "Down",
+            left: "Left",
+            right: "Right"
+        }
+
+
+        $(document).on('keyup', function (e) {
+            let dir = o[e.keyCode] || keys[e.key];
+            let $active = $('.active'),
+                i = $date.index($active);
+            if (e.keyCode == 13) {
+                $('.selected').removeClass('selected');
+                $active.addClass('selected');
+                return;
+            }
+            if (!$active.length) {
+                $date.first().addClass('active');
+                return;
+            } else {
+                if (dir === 'next' || dir === 'prev') {
+                    $active.removeClass('active')[dir]().addClass('active');
+                } else {
+                    let p = dir === 'up' ? (i - 7) : (i + 7);
+                    $date.removeClass('active').eq(p).addClass('active');
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
